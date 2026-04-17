@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feedback - Rota Rural Mercedes</title>
+
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@100..900&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --verde-escuro: #3b6e22;
+      --verde-claro: #a4c639;
+      --bege-claro: #f5f2e7;
+      --texto-escuro: #2f4f1f;
+      --texto-suave: #47572c;
+      --fundo-overlay: rgba(55, 105, 33, 0.6);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: url('img/fundo-personalizado.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--texto-escuro);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-color: var(--fundo-overlay);
+      z-index: 0;
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 20;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: center;
+      background: transparent;
+      user-select: none;
+    }
+
+    .top-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.8rem;
+      margin: 0;
+      padding: 0;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .top-nav a {
+      color: var(--bege-claro);
+      text-decoration: none;
+      font-family: 'Arsenal SC', cursive;
+      padding: 0.3rem 0.7rem;
+      border-radius: 10px;
+      transition: color 0.3s ease, background-color 0.3s ease;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .top-nav a:hover,
+    .top-nav a.active {
+      color: var(--verde-claro);
+      background-color: var(--bege-claro);
+      font-weight: 800;
+      box-shadow: 0 0 8px var(--verde-claro);
+    }
+
+    .top-nav .voltar-servicos {
+      background-color: var(--verde-claro);
+      color: var(--texto-escuro);
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-align: center;
+      display: inline-block;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .top-nav .voltar-servicos:hover {
+      background-color: var(--verde-escuro);
+      box-shadow: 0 0 8px rgba(59, 110, 34, 0.7);
+    }
+
+    main.container {
+      max-width: 600px;
+      margin: 4.5rem auto 3rem;
+      background-color: var(--bege-claro);
+      padding: 2.5rem 2rem 3rem;
+      border-radius: 18px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      position: relative;
+      z-index: 10;
+      color: var(--texto-escuro);
+      font-family: 'Arsenal SC', cursive;
+      user-select: none;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 0.3rem;
+      user-select: none;
+    }
+
+    h2 .emoji-feedback {
+      font-size: 2.2rem;
+      margin-left: 0.4rem;
+      user-select: none;
+    }
+
+    p {
+      text-align: center;
+      color: var(--texto-suave);
+      margin-bottom: 2rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    label {
+      font-weight: 700;
+      color: var(--verde-escuro);
+      font-family: 'Arsenal SC', cursive;
+    }
+
+    .form-control {
+      border-radius: 12px;
+      border: 2px solid var(--verde-claro);
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--verde-claro);
+      box-shadow: 0 0 10px var(--verde-claro);
+      outline: none;
+    }
+
+    .invalid-feedback {
+      display: none;
+      font-size: 0.9rem;
+      color: #dc3545;
+    }
+
+    .is-invalid + .invalid-feedback {
+      display: block;
+    }
+
+    button.btn-success {
+      background-color: var(--verde-claro);
+      border: none;
+      font-weight: 700;
+      padding: 0.7rem 0;
+      font-size: 1.2rem;
+      border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(164, 198, 57, 0.7);
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      width: 100%;
+    }
+
+    button.btn-success:hover {
+      background-color: var(--verde-escuro);
+      box-shadow: 0 8px 22px rgba(59, 110, 34, 0.9);
+    }
+
+    #feedbackSucesso {
+      font-weight: 700;
+      margin-top: 1.5rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    footer {
+      background-color: var(--verde-escuro);
+      color: var(--bege-claro);
+      text-align: center;
+      font-size: 14px;
+      padding: 1rem 0;
+      margin-top: auto;
+      font-family: 'Arsenal SC', cursive;
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="top-nav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="servicos.html">Serviços</a></li>
+      <li><a href="feedback.html" class="active">Feedback</a></li>
+    </ul>
+    <a href="servicos.html" class="voltar-servicos">Voltar para Serviços</a>
+  </nav>
+
+  <main class="container">
+    <h2>Feedback <span class="emoji-feedback">📝🌿</span></h2>
+    <p>Ajude-nos a melhorar! Deixe sua opinião sobre os serviços da Rota Rural Mercedes.</p>
+
+    <form id="formFeedback" novalidate>
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome:</label>
+        <input type="text" id="nome" name="nome" class="form-control" required placeholder="Seu nome" />
+        <div class="invalid-feedback">Por favor, informe seu nome.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail:</label>
+        <input type="email" id="email" name="email" class="form-control" required placeholder="exemplo@dominio.com" />
+        <div class="invalid-feedback">Por favor, informe um e-mail válido.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="mensagem" class="form-label">Mensagem:</label>
+        <textarea id="mensagem" name="mensagem" class="form-control" rows="5" required placeholder="Sua mensagem"></textarea>
+        <div class="invalid-feedback">Por favor, escreva uma mensagem.</div>
+      </div>
+
+      <button type="submit" class="btn btn-success">Enviar</button>
+    </form>
+
+    <div id="feedbackSucesso" class="text-center text-success"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Rota Rural Mercedes | Desenvolvido por Taynara Hasckel</p>
+    <p>Av. João XXIII, Mercedes - PR, Brasil</p>
+  </footer>
+
+  <script>
+    document.getElementById('formFeedback').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome');
+      const email = document.getElementById('email');
+      const mensagem = document.getElementById('mensagem');
+      const feedback = document.getElementById('feedbackSucesso');
+
+      let valido = true;
+
+      feedback.textContent = '';
+
+      // Nome
+      if (!nome.value.trim()) {
+        nome.classList.add('is-invalid');
+        valido = false;
+      } else {
+        nome.classList.remove('is-invalid');
+      }
+
+      // Email
+      const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim() || !emailValido.test(email.value)) {
+        email.classList.add('is-invalid');
+        valido = false;
+      } else {
+        email.classList.remove('is-invalid');
+      }
+
+      // Mensagem
+      if (!mensagem.value.trim()) {
+        mensagem.classList.add('is-invalid');
+        valido = false;
+      } else {
+        mensagem.classList.remove('is-invalid');
+      }
+
+      if (valido) {
+        feedback.textContent = '✅ Obrigado pelo seu feedback!';
+        nome.value = '';
+        email.value = '';
+        mensagem.value = '';
+
+        nome.classList.remove('is-invalid');
+        email.classList.remove('is-invalid');
+        mensagem.classList.remove('is-invalid');
+      }
+    });
+  </script>
+
+</body>
+
+</html>

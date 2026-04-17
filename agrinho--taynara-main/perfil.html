@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfil - Rota Rural Mercedes</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #F2E9DC;
+      color: #3A6351;
+    }
+
+    header {
+      background-color: #3A6351;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .botao-voltar {
+      display: inline-block;
+      background-color: #558b2f;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      margin: 20px auto;
+    }
+
+    .botao-voltar:hover {
+      background-color: #4a6b3d;
+    }
+
+    .perfil-container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .perfil-header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .foto-wrapper {
+      position: relative;
+      width: 140px;
+      height: 140px;
+    }
+
+    .perfil-foto {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-image: url('https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');
+      background-size: cover;
+      background-position: center;
+      border: 4px solid #558b2f;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .foto-wrapper:hover .perfil-foto {
+      transform: scale(1.05);
+    }
+
+    .editar-foto-icon {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #558b2f;
+      color: white;
+      border-radius: 50%;
+      padding: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .perfil-info {
+      flex-grow: 1;
+      min-width: 250px;
+      text-align: center;
+    }
+
+    .perfil-username {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .editar-nome-btn {
+      background: none;
+      border: 1px solid #558b2f;
+      padding: 5px 12px;
+      font-size: 0.9rem;
+      color: #558b2f;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .editar-nome-btn:hover {
+      background-color: #e6f1db;
+    }
+
+    .publicar-btn {
+      background-color: #558b2f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.3s;
+    }
+
+    .publicar-btn:hover {
+      background-color: #4a6b3d;
+    }
+
+    .publicar-area {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .publicar-area label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .publicar-area input[type="file"] {
+      border: 2px dashed #558b2f;
+      padding: 40px;
+      width: 100%;
+      border-radius: 10px;
+      background-color: #e6f1db;
+      cursor: pointer;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #558b2f;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .foto-item {
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      background-color: #ddd;
+    }
+
+    .foto-item img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .sem-fotos {
+      text-align: center;
+      font-style: italic;
+      color: #6B6B6B;
+      margin-top: 40px;
+    }
+
+    .lugares-section {
+      margin-top: 60px;
+    }
+
+    .lugares-section h2 {
+      text-align: center;
+      color: #3A6351;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+
+    .form-lugar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 30px;
+      background-color: #e6f1db;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .form-lugar input[type="text"],
+    .form-lugar textarea {
+      padding: 10px;
+      border: 1px solid #a4c088;
+      border-radius: 6px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+
+    .form-lugar input[type="file"] {
+      border: 2px dashed #558b2f;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      cursor: pointer;
+      color: #558b2f;
+    }
+
+    .form-lugar button {
+      background-color: #558b2f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .form-lugar button:hover {
+      background-color: #4a6b3d;
+    }
+
+    .lugares-lista {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    .lugar-card {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .lugar-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .lugar-card .info {
+      padding: 15px;
+    }
+
+    .lugar-card .info h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      color: #3A6351;
+    }
+
+    .lugar-card .info p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    @media (max-width: 480px) {
+      .perfil-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Perfil do usuário</h1>
+  </header>
+
+  <!-- Botão para voltar aos serviços -->
+  <div style="text-align: center;">
+    <a href="servicos.html" class="botao-voltar">← Voltar para Serviços</a>
+  </div>
+
+  <main class="perfil-container">
+    <section class="perfil-header">
+      <div class="foto-wrapper">
+        <div class="perfil-foto" id="fotoPerfil" title="Clique para trocar a foto"></div>
+        <label for="inputFotoPerfil" class="editar-foto-icon" title="Editar foto de perfil">📷</label>
+        <input type="file" id="inputFotoPerfil" accept="image/*" style="display: none" onchange="trocarFotoPerfil(event)" />
+      </div>
+
+      <div class="perfil-info">
+        <div class="perfil-username" id="username">@usuario_exemplo</div>
+        <button class="editar-nome-btn" onclick="editarNome()">Editar nome</button>
+        <br />
+      </div>
+    </section>
+
+    <section class="lugares-section">
+      <h2>Lugares Visitados</h2>
+      <form id="formLugar" class="form-lugar" onsubmit="adicionarLugar(event)">
+        <input type="text" id="nomeLugar" placeholder="Nome do lugar" required />
+        <textarea id="comentarioLugar" rows="3" placeholder="Escreva um comentário..." required></textarea>
+        <input type="file" id="fotoLugar" accept="image/*" required />
+        <button type="submit">Adicionar lugar</button>
+      </form>
+
+      <div id="listaLugares" class="lugares-lista">
+        <p class="sem-fotos" id="semLugaresMsg">Nenhum lugar adicionado ainda.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const galeria = document.getElementById('galeriaFotos');
+    const semFotosMsg = document.getElementById('semFotosMsg');
+    const semLugaresMsg = document.getElementById('semLugaresMsg');
+    const listaLugares = document.getElementById('listaLugares');
+
+    function adicionarFoto(event) {
+      const arquivo = event.target.files[0];
+      if (!arquivo) return;
+
+      const url = URL.createObjectURL(arquivo);
+      const div = document.createElement('div');
+      div.className = 'foto-item';
+
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = 'Foto publicada';
+
+      div.appendChild(img);
+      galeria.appendChild(div);
+      semFotosMsg.style.display = 'none';
+      event.target.value = '';
+    }
+
+    function trocarFotoPerfil(event) {
+      const arquivo = event.target.files[0];
+      if (!arquivo) return;
+      const url = URL.createObjectURL(arquivo);
+      document.getElementById('fotoPerfil').style.backgroundImage = `url('${url}')`;
+    }
+
+    function editarNome() {
+      const nomeAtual = document.getElementById('username').innerText;
+      const novoNome = prompt('Digite o novo nome de usuário:', nomeAtual);
+      if (novoNome) {
+        document.getElementById('username').innerText = novoNome;
+      }
+    }
+
+    function adicionarLugar(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nomeLugar').value.trim();
+      const comentario = document.getElementById('comentarioLugar').value.trim();
+      const foto = document.getElementById('fotoLugar').files[0];
+
+      if (!nome || !comentario || !foto) return;
+
+      const url = URL.createObjectURL(foto);
+
+      const card = document.createElement('div');
+      card.className = 'lugar-card';
+
+      card.innerHTML = `
+        <img src="${url}" alt="Foto do lugar ${nome}" />
+        <div class="info">
+          <h3>${nome}</h3>
+          <p>${comentario}</p>
+        </div>
+      `;
+
+      listaLugares.appendChild(card);
+      semLugaresMsg.style.display = 'none';
+      document.getElementById('formLugar').reset();
+    }
+  </script>
+
+</body>
+</html>
